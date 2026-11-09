@@ -2,7 +2,10 @@
 # Baut das mallu-Webmail als Bulwark-Lite-Paket für Stalwart.
 # Der Lite-Build löscht Server-Teile aus dem Checkout, deshalb läuft er in einer Wegwerf-Kopie.
 #
-#   bash deploy/mallu/build-lite.sh            # Ergebnis: dist-mallu/bulwark-lite-stalwart.zip (+ .sha256)
+#   bash deploy/mallu/build-lite.sh            # Ergebnis: dist-mallu/mallu-webmail-stalwart.zip (+ .sha256)
+#
+# Eigener Dateiname mit Absicht: Bulwarks Release-Workflows laden bei jedem Release ein unverändertes
+# bulwark-lite-stalwart.zip hoch und würden ein gleichnamiges mallu-Paket überschreiben.
 set -euo pipefail
 
 repo="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -20,7 +23,7 @@ GIT_COMMIT="$(git rev-parse HEAD)" \
   npm run build:lite -- --in-place --target=stalwart
 
 mkdir -p "$repo/dist-mallu"
-cp bulwark-lite-stalwart.zip "$repo/dist-mallu/"
+cp bulwark-lite-stalwart.zip "$repo/dist-mallu/mallu-webmail-stalwart.zip"
 cd "$repo/dist-mallu"
-sha256sum bulwark-lite-stalwart.zip | cut -c1-64 > bulwark-lite-stalwart.zip.sha256
-echo "Fertig: $repo/dist-mallu/bulwark-lite-stalwart.zip"
+sha256sum mallu-webmail-stalwart.zip | cut -c1-64 > mallu-webmail-stalwart.zip.sha256
+echo "Fertig: $repo/dist-mallu/mallu-webmail-stalwart.zip"

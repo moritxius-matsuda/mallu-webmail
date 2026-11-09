@@ -26,14 +26,16 @@ Alles andere ist unverändert. So bleiben Updates einfach (siehe unten).
 bash deploy/mallu/build-lite.sh
 ```
 
-Ergebnis: `dist-mallu/bulwark-lite-stalwart.zip` und die Prüfsumme `…zip.sha256`. Beides als Release in diesem Repository hochladen:
+Ergebnis: `dist-mallu/mallu-webmail-stalwart.zip` und die Prüfsumme `…zip.sha256`. Beides als Release in diesem Repository hochladen:
 
 ```bash
-gh release create mallu-<version> dist-mallu/bulwark-lite-stalwart.zip dist-mallu/bulwark-lite-stalwart.zip.sha256 \
+gh release create mallu-<version> dist-mallu/mallu-webmail-stalwart.zip dist-mallu/mallu-webmail-stalwart.zip.sha256 --target main \
   --title "mallu Webmail <version>" --notes "Bulwark Lite für Stalwart im mallu-Design."
 ```
 
-Release-Tags ohne `v` davor, zum Beispiel `mallu-1.21.0-1`.
+Release-Tags ohne `v` davor, zum Beispiel `mallu-1.21.0-3`.
+
+**Wichtig:** Bulwarks eigene Workflows laufen bei jedem Release mit und laden zusätzlich unveränderte Bulwark-Pakete hoch, darunter `bulwark-lite-stalwart.zip`. Diese Dateien nicht verwenden. In Stalwart immer `mallu-webmail-stalwart.zip` eintragen.
 
 ## In Stalwart einbinden (einmalig)
 
@@ -42,14 +44,14 @@ WebUI › Settings › Web Applications › neue Application:
 | Feld | Wert |
 | --- | --- |
 | Description | `mallu Webmail` |
-| Resource URL | `https://github.com/moritxius-matsuda/mallu-webmail/releases/download/<tag>/bulwark-lite-stalwart.zip` |
+| Resource URL | `https://github.com/moritxius-matsuda/mallu-webmail/releases/download/<tag>/mallu-webmail-stalwart.zip` |
 | URL prefix | `/webmail` |
 
 Danach **Update applications** ausführen. Das Anlegen allein bindet nichts ein. Mit der CLI:
 
 ```bash
 stalwart-cli create Application --field description='mallu Webmail' \
-  --field resourceUrl='https://github.com/moritxius-matsuda/mallu-webmail/releases/download/<tag>/bulwark-lite-stalwart.zip' \
+  --field resourceUrl='https://github.com/moritxius-matsuda/mallu-webmail/releases/download/<tag>/mallu-webmail-stalwart.zip' \
   --field 'urlPrefix={"/webmail":true}'
 stalwart-cli create Action/UpdateApps
 ```
