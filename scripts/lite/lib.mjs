@@ -208,7 +208,18 @@ export function buildLiteConfig(env = {}, { target = "static" } = {}) {
     noThirdPartyTraffic: parseBool(env.LITE_NO_THIRD_PARTY_TRAFFIC, false),
     loginShowTotp: true,
     loginShowVersion: true,
+    // mallu fork: further config.json keys (logos, login links...) from a JSON
+    // file, e.g. LITE_EXTRA_CONFIG=deploy/mallu/lite-config.json.
+    ...readExtraConfig(env.LITE_EXTRA_CONFIG),
   };
+}
+
+function readExtraConfig(path) {
+  if (!path || !path.trim()) return {};
+  const extra = JSON.parse(readFileSync(resolve(path.trim()), "utf8"));
+  if (!extra || typeof extra !== "object" || Array.isArray(extra)) throw new Error(`LITE_EXTRA_CONFIG ${path}: not a JSON object`);
+  delete extra._comment;
+  return extra;
 }
 
 /** policy.json: only the gates Lite must pin; the app merges the rest over its defaults. */

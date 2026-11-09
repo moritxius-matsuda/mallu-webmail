@@ -1,0 +1,19 @@
+{
+  "_comment": "mallu Branding für Bulwark Lite. Wird beim Build über LITE_EXTRA_CONFIG in config.json gemischt.",
+  "faviconUrl": "/branding/mallu-app-icon.svg",
+  "appLogoLightUrl": "/branding/mallu-bildmarke-blau.svg",
+  "appLogoDarkUrl": "/branding/mallu-bildmarke-weiss.svg",
+  "loginLogoLightUrl": "/branding/mallu-logo-blau-auf-hell.svg",
+  "loginLogoDarkUrl": "/branding/mallu-logo-weiss.svg",
+  "loginLogoMaxHeight": "84px",
+  "loginLogoMaxWidth": "260px",
+  "loginCompanyName": "mallu Cloud Solutions",
+  "loginWebsiteUrl": "https://mal.lu",
+  "loginImprintUrl": "https://mal.lu/impressum",
+  "loginPrivacyPolicyUrl": "https://mal.lu/datenschutz",
+  "loginUsernamePlaceholder": "name@ihre-domain.de",
+  "loginShowVersion": false,
+  "accountManagementUrl": "https://mal.lu/panel/email",
+  "accountManagementLabel": "Kundenpanel",
+  "sourceCodeUrl": "https://github.com/moritxius-matsuda/mallu-webmail"
+}
