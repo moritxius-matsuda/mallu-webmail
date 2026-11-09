@@ -74,7 +74,7 @@ export function applyLiteConfig(raw: unknown, defaults?: { jmapServerUrl?: strin
     oauthScopes: '',
     oauthResource: '',
     rememberMeEnabled: bool(input.rememberMeEnabled, true),
-    faviconUrl: str(input.faviconUrl, '') || '/branding/Bulwark_Favicon.svg',
+    faviconUrl: str(input.faviconUrl, '') || '/branding/mallu-app-icon.svg',
     appLogoLightUrl: str(input.appLogoLightUrl, ''),
     appLogoDarkUrl: str(input.appLogoDarkUrl, ''),
     loginLogoLightUrl: str(input.loginLogoLightUrl, '') || '/branding/Bulwark_Logo_Color.svg',

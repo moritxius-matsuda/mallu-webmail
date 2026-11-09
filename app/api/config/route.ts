@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
       stalwartFeaturesEnabled,
       stalwartJmapPassthroughEnabled,
       devMode: configManager.get<boolean>('devMode', false),
-      faviconUrl: branded<string>('faviconUrl', '/branding/Bulwark_Favicon.svg'),
+      faviconUrl: branded<string>('faviconUrl', '/branding/mallu-app-icon.svg'),
       appLogoLightUrl: branded<string>('appLogoLightUrl', ''),
       appLogoDarkUrl: branded<string>('appLogoDarkUrl', ''),
       loginLogoLightUrl: branded<string>('loginLogoLightUrl', '/branding/Bulwark_Logo_Color.svg'),
