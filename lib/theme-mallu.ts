@@ -133,6 +133,16 @@ body[data-theme-skin="${MALLU_THEME_ID}"] :is(h1, h2) {
   letter-spacing: -0.01em;
 }
 
+/* ── Avatars without a photo: white initials on mallu blue. The avatar sets
+   the initials colour inline for its random hue (black on light hues); the
+   Flat fields rule above swaps only the background, which left black text
+   on the dark surface. Blue #2563eb with white text is 5.17:1. ── */
+body[data-theme-skin="${MALLU_THEME_ID}"] .rounded-full.overflow-hidden.text-white[title]:not(:has(img)) {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  box-shadow: none;
+}
+
 /* ── Code and addresses in the website's mono face ── */
 body[data-theme-skin="${MALLU_THEME_ID}"] :is(.font-mono, code, kbd, pre) {
   font-family: var(--font-mallu-mono, "JetBrains Mono"), ui-monospace, Consolas, monospace;
