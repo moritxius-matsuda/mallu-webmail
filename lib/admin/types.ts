@@ -245,10 +245,7 @@ export const DEFAULT_POLICY: SettingsPolicy = {
   pushRelays: [],
   pushRelayUrl: '',
   pushRelayUrlLocked: false,
-  // mallu fork: a link back to the customer panel on mal.lu in the rail.
-  defaultSidebarApps: [
-    { id: 'mallu-panel', name: 'Kundenpanel', url: 'https://mal.lu/panel', icon: 'LayoutDashboard', openMode: 'tab', showOnMobile: true },
-  ],
+  defaultSidebarApps: [],
 };
 
 export interface AuditEntry {

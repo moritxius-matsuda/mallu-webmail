@@ -1,4 +1,0 @@
-webmail.mal.lu {
-	encode zstd gzip
-	reverse_proxy webmail:3000
-}

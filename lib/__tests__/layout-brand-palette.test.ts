@@ -8,6 +8,9 @@ vi.mock('next/font/google', () => ({
   Geist: () => ({ variable: '--font-geist-sans' }),
   Geist_Mono: () => ({ variable: '--font-geist-mono' }),
   Hanken_Grotesk: () => ({ variable: '--font-hanken' }),
+  Instrument_Sans: () => ({ variable: '--font-mallu-body' }),
+  Schibsted_Grotesk: () => ({ variable: '--font-mallu-display' }),
+  JetBrains_Mono: () => ({ variable: '--font-mallu-mono' }),
 }));
 vi.mock('@/components/service-worker-registration', () => ({ ServiceWorkerRegistration: () => null }));
 vi.mock('@/components/favicon-badge', () => ({ FaviconBadge: () => null }));
