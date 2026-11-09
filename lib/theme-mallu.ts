@@ -143,6 +143,20 @@ body[data-theme-skin="${MALLU_THEME_ID}"] .rounded-full.overflow-hidden.text-whi
   box-shadow: none;
 }
 
+/* ── Dark mode: action buttons like on mal.lu, solid blue with white text.
+   The dark primary token stays light blue (#7aa5ff) because links and marks
+   use it as text colour, where #2563eb would be too dark on the dark surface.
+   Chosen options in segmented controls keep the Flat fields look. ── */
+.dark body[data-theme-skin="${MALLU_THEME_ID}"] :is(button, a).bg-primary:not([aria-pressed="true"]):not([role="radio"]):not(:disabled),
+.dark body[data-theme-skin="${MALLU_THEME_ID}"] [data-tour="compose-button"] {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+.dark body[data-theme-skin="${MALLU_THEME_ID}"] :is(button, a).bg-primary:not([aria-pressed="true"]):not([role="radio"]):not(:disabled):hover,
+.dark body[data-theme-skin="${MALLU_THEME_ID}"] [data-tour="compose-button"]:hover {
+  background-color: #1a47b8;
+}
+
 /* ── Code and addresses in the website's mono face ── */
 body[data-theme-skin="${MALLU_THEME_ID}"] :is(.font-mono, code, kbd, pre) {
   font-family: var(--font-mallu-mono, "JetBrains Mono"), ui-monospace, Consolas, monospace;
