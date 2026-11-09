@@ -1,0 +1,49 @@
+# mallu Webmail unter webmail.mal.lu: Bulwark (mallu-Fork) hinter Caddy.
+# Caddy holt das Zertifikat selbst und ist als einziger Dienst von außen erreichbar.
+#
+# Start:  docker compose up -d
+# Update: docker compose pull && docker compose up -d
+
+services:
+  webmail:
+    image: ${WEBMAIL_IMAGE:-ghcr.io/moritxius-matsuda/mallu-webmail-beta:latest}
+    env_file:
+      - mallu.env
+    environment:
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
+      - SESSION_SECRET_FILE=/run/secrets/session_secret
+    secrets:
+      - session_secret
+    volumes:
+      - webmail-data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - webmail
+    restart: unless-stopped
+
+secrets:
+  # Einmal erzeugen: openssl rand -hex 32 > session_secret && chmod 600 session_secret
+  session_secret:
+    file: ./session_secret
+
+volumes:
+  webmail-data:
+  caddy-data:
+  caddy-config:

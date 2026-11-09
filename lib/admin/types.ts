@@ -139,7 +139,8 @@ export interface ThemePolicy {
 export const DEFAULT_THEME_POLICY: ThemePolicy = {
   disabledBuiltinThemes: [],
   disabledThemes: [],
-  defaultThemeId: null,
+  // mallu fork: the mallu theme is the default until an admin picks another.
+  defaultThemeId: 'builtin-mallu',
   defaultColorMode: null,
   lockColorMode: false,
 };
@@ -244,7 +245,10 @@ export const DEFAULT_POLICY: SettingsPolicy = {
   pushRelays: [],
   pushRelayUrl: '',
   pushRelayUrlLocked: false,
-  defaultSidebarApps: [],
+  // mallu fork: a link back to the customer panel on mal.lu in the rail.
+  defaultSidebarApps: [
+    { id: 'mallu-panel', name: 'Kundenpanel', url: 'https://mal.lu/panel', icon: 'LayoutDashboard', openMode: 'tab', showOnMobile: true },
+  ],
 };
 
 export interface AuditEntry {

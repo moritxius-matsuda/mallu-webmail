@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { getLocaleDirection } from "@/i18n/direction";
-import { Geist, Geist_Mono, Hanken_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Hanken_Grotesk, Instrument_Sans, JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
 import { headers } from "next/headers";
 import { getLocale, getTranslations } from "next-intl/server";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
@@ -60,6 +60,33 @@ const geistMono = Geist_Mono({
 const hankenGrotesk = Hanken_Grotesk({
   variable: "--font-hanken",
   subsets: ["latin", "latin-ext"],
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+});
+
+// mallu fork: the mallu theme's families (lib/theme-mallu.ts). Loaded like
+// Hanken above: not preloaded, fetched only once the theme draws text in them.
+const malluBody = Instrument_Sans({
+  variable: "--font-mallu-body",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+});
+const malluDisplay = Schibsted_Grotesk({
+  variable: "--font-mallu-display",
+  subsets: ["latin", "latin-ext"],
+  weight: ["600", "800"],
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
+});
+const malluMono = JetBrains_Mono({
+  variable: "--font-mallu-mono",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500"],
   display: "swap",
   preload: false,
   adjustFontFallback: false,
@@ -366,7 +393,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${hankenGrotesk.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${hankenGrotesk.variable} ${malluBody.variable} ${malluDisplay.variable} ${malluMono.variable} antialiased`}
       >
         <ServiceWorkerRegistration />
         <WindowControlsHost />

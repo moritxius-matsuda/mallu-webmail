@@ -1,5 +1,6 @@
 import type { InstalledTheme } from './plugin-types';
 import { flatFieldsCSS, flatFieldsSkin } from './theme-flat-fields';
+import { MALLU_THEME_ID, malluCSS, malluSkin } from './theme-mallu';
 
 const quiCSS = `
 :root {
@@ -879,6 +880,18 @@ body[data-theme-skin="builtin-aurora-glass"] [role="menu"] [role="menuitem"]:foc
 }`;
 
 export const BUILTIN_THEMES: InstalledTheme[] = [
+  {
+    id: MALLU_THEME_ID,
+    name: 'mallu',
+    version: '1.0.0',
+    author: 'Built-in',
+    description: 'The mal.lu design: mallu blue, square shapes, Instrument Sans and Schibsted Grotesk',
+    css: malluCSS,
+    skin: malluSkin,
+    variants: ['light', 'dark'],
+    enabled: true,
+    builtIn: true,
+  },
   {
     id: 'builtin-flat-fields',
     name: 'Flat fields',
