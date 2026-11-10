@@ -19,6 +19,7 @@ npm ci --ignore-scripts --no-audit --no-fund
 LITE_APP_NAME="mallu Webmail" \
 LITE_EXTRA_CONFIG="$work/src/deploy/mallu/lite-config.json" \
 NEXT_PUBLIC_DEFAULT_LOCALE=de \
+NEXT_PUBLIC_FAVICON_PROXY_URL="${NEXT_PUBLIC_FAVICON_PROXY_URL:-https://mal.lu/api/webmail/favicon}" \
 GIT_COMMIT="$(git rev-parse HEAD)" \
   npm run build:lite -- --in-place --target=stalwart
 

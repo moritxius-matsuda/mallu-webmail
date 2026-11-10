@@ -12,6 +12,12 @@ import { useContactPhotoSrc } from "@/hooks/use-contact-photo";
 import { avatarHooks } from "@/lib/plugin-hooks";
 import { withBasePath } from "@/lib/browser-navigation";
 import { IS_LITE } from "@/lib/lite";
+
+/**
+ * Lite has no /api/favicon. A build may bake in an outside proxy with the same
+ * contract (GET ?domain=&v=, raster image or 1x1 PNG), e.g. https://mal.lu/api/webmail/favicon.
+ */
+const LITE_FAVICON_PROXY = (process.env.NEXT_PUBLIC_FAVICON_PROXY_URL ?? "").trim();
 import { avatarUrlAllowed, sampleAvatarsAllowed, senderFaviconsAllowed } from "@/lib/outgoing-hosts";
 import { useNoThirdPartyTraffic } from "@/hooks/use-third-party-mode";
 import { useFaviconRefreshStore, failedFaviconDomains, failedBrandDomains } from "@/stores/favicon-refresh-store";
@@ -328,9 +334,9 @@ export function Avatar({ name, email, contactPhoto, size = "md", className, disa
 
   const profilePic = email && domain ? getProfilePictureUrl(email, domain, devMode, name) : null;
   // Sender favicons come from the /api/favicon proxy, absent in the static
-  // build and off while third-party traffic is (#903).
+  // build (unless an outside proxy is baked in) and off while third-party traffic is (#903).
   const showFavicon =
-    !IS_LITE && senderFaviconsAllowed() && !disableFavicon && senderFavicons && faviconDomain && !PERSONAL_DOMAINS.has(faviconDomain) && !imgError && !domainFailed;
+    (!IS_LITE || !!LITE_FAVICON_PROXY) && senderFaviconsAllowed() && !disableFavicon && senderFavicons && faviconDomain && !PERSONAL_DOMAINS.has(faviconDomain) && !imgError && !domainFailed;
 
   // Priority: contact photo > BIMI logo > plugin avatar (e.g. Gravatar) > custom avatar > profile picture > company favicon > initials
   const customAvatar = devMode && email && sampleAvatarsAllowed() ? CUSTOM_AVATARS[email.toLowerCase()] : null;
@@ -343,7 +349,10 @@ export function Avatar({ name, email, contactPhoto, size = "md", className, disa
     !IS_LITE && senderFaviconsAllowed() && senderFavicons && !!brandDomain && domain === brandDomain && brandDomain !== failedBrand && !failedBrandDomains.has(brandDomain);
   const brandSrc = showBrand ? withBasePath(`/api/bimi?domain=${encodeURIComponent(brandDomain!)}${faviconRefreshedAt ? `&v=${faviconRefreshedAt}` : ""}`) : null;
   const photoSrc = resolvedContactPhoto || brandSrc || pluginAvatar || customAvatar || profilePic || null;
-  const faviconSrc = !imgError && !domainFailed && showFavicon ? withBasePath(`/api/favicon?domain=${encodeURIComponent(faviconDomain!)}${faviconRefreshedAt ? `&v=${faviconRefreshedAt}` : ""}`) : null;
+  const faviconQuery = `?domain=${encodeURIComponent(faviconDomain!)}${faviconRefreshedAt ? `&v=${faviconRefreshedAt}` : ""}`;
+  const faviconSrc = !imgError && !domainFailed && showFavicon
+    ? (IS_LITE ? `${LITE_FAVICON_PROXY}${faviconQuery}` : withBasePath(`/api/favicon${faviconQuery}`))
+    : null;
   const imgSrc = disableImages ? null : (photoSrc || faviconSrc);
   const isFavicon = imgSrc !== null && imgSrc === faviconSrc;
   const isBrand = imgSrc !== null && imgSrc === brandSrc;
